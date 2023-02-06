@@ -27,8 +27,8 @@ jobs:
     steps:
       - run: |
           ssh -o StrictHostKeyChecking=no ubuntu@3.131.197.152 \<< EOF
-          docker pull "${IMAGE_TAG}"
-          docker run -dt -p 4200:4200 "${IMAGE_TAG}"
+          sudo docker pull "${IMAGE_TAG}"
+          sudo docker run -dt -p 4200:4200 "${IMAGE_TAG}"
           EOF
       
       
