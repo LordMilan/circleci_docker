@@ -8,6 +8,16 @@ executors:
       - image: docker:stable
 
 jobs:
+  test:
+    working_directory: ~/circleci
+    docker:
+      - image: cimg/node:latest
+    steps:
+      - checkout
+      - run: | 
+          npm install 
+          npm run test
+
   build-push:
     executor: docker-publisher
     steps:
@@ -36,7 +46,10 @@ workflows:
   version: 2
   build-push:
     jobs:
+      - test
       - build-push:
+          requires:
+            - test
           context:
             - mercantile-demo
       - deploy:
