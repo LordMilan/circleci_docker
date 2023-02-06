@@ -17,38 +17,40 @@ jobs:
           name: Build Docker image
           command: docker build --tag "${IMAGE_TAG}" .
       - run:
-          name: Archive Docker image
-          command: docker save --output image.tar "${IMAGE_TAG}"
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./image.tar
-
-  push:
-    executor: docker-publisher
-    steps:
-      - setup_remote_docker
-      - attach_workspace:
-          at: /tmp/workspace
-      - run:
-          name: Load Docker image
-          command: docker load --input /tmp/workspace/image.tar
-      - run:
-          name: Publish Docker image
+          name: Push to Dockerhub
           command: |
-            echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
-            docker push "${IMAGE_TAG}"
+           echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
+           docker push "${IMAGE_TAG}"
+## For persistant storage ##
+      
+      # - run:
+      #     name: Archive Docker image
+      #     command: docker save --output image.tar "${IMAGE_TAG}"
+      # - persist_to_workspace:
+      #     root: .
+      #     paths:
+      #       - ./image.tar
+
+## For pushing as seperate job ##
+  # push:
+  #   executor: docker-publisher
+  #   steps:
+  #     - setup_remote_docker
+  #     - attach_workspace:
+  #         at: /tmp/workspace
+  #     - run:
+  #         name: Load Docker image
+  #         command: docker load --input /tmp/workspace/image.tar
+  #     - run:
+  #         name: Publish Docker image
+  #         command: |
+  #           echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
+  #           docker push "${IMAGE_TAG}"
 
 workflows:
   version: 2
   build-push:
     jobs:
-      - build
-      - push:
+      - build-push:
           context:
             - mercantile-demo
-          requires:
-            - build
-          filters:
-            branches:
-              only: main
