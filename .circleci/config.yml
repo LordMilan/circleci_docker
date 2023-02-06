@@ -39,6 +39,9 @@ workflows:
       - build-push:
           context:
             - mercantile-demo
+      - deploy:
+          requires:
+            - build-push
 
 
 
