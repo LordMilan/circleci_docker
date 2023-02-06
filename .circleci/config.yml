@@ -8,7 +8,7 @@ executors:
       - image: docker:stable
 
 jobs:
-  build:
+  build-push:
     executor: docker-publisher
     steps:
       - checkout
@@ -21,6 +21,7 @@ jobs:
           command: |
            echo "${DOCKER_PASSWORD}" | docker login --username "${DOCKER_USERNAME}" --password-stdin
            docker push "${IMAGE_TAG}"
+
 ## For persistant storage ##
       
       # - run:
