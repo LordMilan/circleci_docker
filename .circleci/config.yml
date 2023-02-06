@@ -38,9 +38,8 @@ jobs:
       - run: |
           ssh -o StrictHostKeyChecking=no ubuntu@3.131.197.152 \<< EOF
           sudo docker pull "${IMAGE_TAG}"
-          sudo docker run -dt -p 4200:4200 "${IMAGE_TAG}"
+          sudo docker container run -d -p 4200:4200 --name=nodeapp milanmahat/helloworld:latest node index.js "${IMAGE_TAG}"
           EOF
-      
       
 workflows:
   version: 2
