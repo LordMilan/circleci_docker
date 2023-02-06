@@ -45,6 +45,8 @@ workflows:
     jobs:
       - build
       - push:
+          context:
+            - mercantile-demo
           requires:
             - build
           filters:
