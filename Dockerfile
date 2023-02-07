@@ -1,6 +1,6 @@
 FROM node:latest
 WORKDIR /project
-COPY package*.json ./
+#COPY package*.json ./
 #RUN npm i
 COPY . .
 EXPOSE 4200

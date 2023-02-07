@@ -27,6 +27,7 @@ jobs:
       - checkout
       - node/install-packages:
           with-cache: true
+      - run: ls
       - setup_remote_docker
       - run:
           name: Build Docker image
