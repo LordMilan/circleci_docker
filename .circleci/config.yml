@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@5.1.0
+
 executors:
   docker-publisher:
     environment:
@@ -14,9 +17,10 @@ jobs:
       - image: "cimg/node:16.13.2"
     steps:
       - checkout
-      - run: | 
-          npm install 
-          npm run test
+      - node/install-packages:
+          with-cache: true 
+      - node/test:
+          run-command: test
 
   build-push:
     executor: docker-publisher
