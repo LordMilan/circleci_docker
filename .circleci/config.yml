@@ -25,6 +25,9 @@ jobs:
     executor: docker-publisher
     steps:
       - checkout
+      - node/install:
+          install-yarn: true
+          node-version: '16.13'
       - node/install-packages:
           with-cache: true
       - run: ls
