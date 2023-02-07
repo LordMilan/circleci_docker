@@ -25,6 +25,8 @@ jobs:
     executor: docker-publisher
     steps:
       - checkout
+      - node/install-packages:
+          with-cache: true
       - setup_remote_docker
       - run:
           name: Build Docker image
