@@ -36,7 +36,7 @@ jobs:
     executor: docker-publisher
     steps:
       - run: |
-          ssh -o StrictHostKeyChecking=no ubuntu@3.131.197.152 \<< EOF
+          ssh -o StrictHostKeyChecking=no ubuntu@${HOSTNAME} \<< EOF
           sudo docker pull "${IMAGE_TAG}"
           sudo docker rename nodeapp nodeapp_tmp
           sudo docker stop nodeapp_tmp && sudo docker rm nodeapp_tmp
