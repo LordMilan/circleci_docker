@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/LordMilan/circleci_docker/issues"
   },
-  "homepage": "https://github.com/LordMilan/circleci_docker#readme"
+  "homepage": "https://github.com/LordMilan/circleci_docker#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3"
+  }
 }
