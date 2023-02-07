@@ -19,8 +19,7 @@ jobs:
       - checkout
       - node/install-packages:
           with-cache: true 
-      - node/test:
-          run-command: test
+      - run: npm run test
 
   build-push:
     executor: docker-publisher
