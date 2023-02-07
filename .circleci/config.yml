@@ -40,7 +40,7 @@ jobs:
           sudo docker pull "${IMAGE_TAG}"
           sudo docker rename nodeapp nodeapp_tmp
           sudo docker stop nodeapp_tmp && sudo docker rm nodeapp_tmp
-          sudo docker container run -d -p 4200:4200 --name=nodeapp ${IMAGE_TAG} node index.js
+          sudo docker container run -d -p 4200:4200 --name=nodeapp --restart unless-stopped ${IMAGE_TAG} node index.js
           EOF
       
 workflows:
